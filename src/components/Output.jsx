@@ -35,8 +35,8 @@ const Output = ({ editorRef, language }) => {
         Output
       </Text>
       <Button
-        variant="outline"
-        colorScheme="green"
+        variant="solid"
+        colorScheme="blue"
         mb={4}
         isLoading={isLoading}
         onClick={runCode}
@@ -47,7 +47,7 @@ const Output = ({ editorRef, language }) => {
         height="75vh"
         p={2}
         color={isError ? "red.400" : ""}
-        border="1px solid"
+        border="2px solid"
         borderRadius={4}
         borderColor={isError ? "red.500" : "#333"}
       >
