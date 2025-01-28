@@ -28,16 +28,9 @@ const CodeEditor = () => {
         <Box w="50%">
           <LanguageSelector language={language} onSelect={onSelect} />
           <Editor
-            options={{
-              minimap: {
-                enabled: false,
-              },
-            }}
             height="75vh"
             theme="vs-dark"
             language={language}
-            defaultValue={CODE_SNIPPETS[language]}
-            onMount={onMount}
             value={value}
             onChange={(value) => setValue(value)}
           />
