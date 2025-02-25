@@ -24,7 +24,7 @@ const CodeEditor = () => {
     if (!monaco || !editor) return;
 
     const completion = registerCompletion(monaco, editor, {
-      endpoint: '../api/complete/server',
+      endpoint: 'http://localhost:5000/complete/',
       language: 'python',
     });
 

@@ -14,6 +14,7 @@
     previews = {
       web = {
         command = [
+          "npx"
           "npm"
           "run"
           "dev"
