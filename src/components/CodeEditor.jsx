@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import MonacoEditor from '@monaco-editor/react';
-import LanguageSelector from "./LanguageSelector";
+import LanguageSelector from "./LanguageSelector.jsx";
 import { CODE_SNIPPETS } from "../constants";
-import Output from "./Output";
+import Output from "./Output.jsx";
 import {registerCompletion} from 'monacopilot';
 
 
