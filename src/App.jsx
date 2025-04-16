@@ -1,11 +1,9 @@
 import { Box } from "@chakra-ui/react";
-// import CodeEditor from "./components/CodeEditor.jsx";
-import LandingPage from ".components/LandingPage.jsx";
+import CodeEditor from "./components/CodeEditor.jsx";
 function App() {
   return (
     <Box minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
-      {/* <CodeEditor/> */}
-      <LandingPage/>
+      <CodeEditor/>
     </Box>
   );
 }
