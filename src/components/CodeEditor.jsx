@@ -1,10 +1,10 @@
-import { useRef, useState, useEffect } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import MonacoEditor from '@monaco-editor/react';
-import LanguageSelector from "./LanguageSelector.jsx";
+import { registerCompletion } from 'monacopilot';
+import { useEffect, useRef, useState } from "react";
 import { CODE_SNIPPETS } from "../constants";
+import LanguageSelector from "./LanguageSelector.jsx";
 import Output from "./Output.jsx";
-import {registerCompletion} from 'monacopilot';
 
 
 
@@ -24,8 +24,8 @@ const CodeEditor = () => {
     if (!monaco || !editor) return;
 
     const completion = registerCompletion(monaco, editor, {
-      endpoint: 'http://localhost:5000/complete/',
-      language: 'python',
+      endpoint: 'http://localhost:5000/complete/server',
+      language: ["python", "javascript", "typescript"]
     });
 
     return () => {
