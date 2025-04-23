@@ -4,6 +4,19 @@ export const LANGUAGE_VERSIONS = {
   python: "3.10.0",
 };
 
+export const FILE_EXTENSIONS = {
+  ".js": "javascript",
+  ".jsx": "javascript",
+  ".ts": "typescript",
+  ".tsx": "typescript",
+  ".py": "python",
+  ".txt": "plaintext",
+  ".md": "markdown",
+  ".json": "json",
+  ".html": "html",
+  ".css": "css",
+};
+
 export const CODE_SNIPPETS = {
   javascript: `\nfunction greet(name) {\n\tconsole.log("Hello, " + name + "!");\n}\n\ngreet("Editor");\n`,
   typescript: `\ntype Params = {\n\tname: string;\n}\n\nfunction greet(data: Params) {\n\tconsole.log("Hello, " + data.name + "!");\n}\n\ngreet({ name: "Editor" });\n`,

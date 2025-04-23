@@ -4,6 +4,7 @@ import { FaSave } from "react-icons/fa";
 import CodeEditor from "./components/CodeEditor.jsx";
 import { FileExplorer } from "./components/FileExplorer.jsx";
 import { useLocalFiles } from "./hooks/useLocalFiles";
+import { BloomForCausalLM } from "@huggingface/transformers";
 
 
 function App() {
@@ -46,11 +47,12 @@ function App() {
   return (
     <ChakraProvider>
       <Flex h="100vh" direction="column">
-        <HStack p={2} borderBottom="1px" borderColor="gray.200" bg="gray.50">
+        <HStack p={2} borderBottom="1px" borderColor="gray.500" bg="gray.100">
           <Button
             leftIcon={<FaSave />}
-            colorScheme="black"
+            color="black"
             size="sm"
+            variant={"outline"}
             onClick={handleSaveFile}
             isDisabled={!currentFilePath}
           >
@@ -62,11 +64,13 @@ function App() {
         </HStack>
         <Flex flex="1">
           <FileExplorer onFileSelect={handleFileSelect} selectedFilePath={currentFilePath} />
-          <Box flex="1"minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
-            <CodeEditor />
+          <Box flex="1" minH="100vh" bg="#0f0a19" color="gray.500" px={6} py={8}>
+            <CodeEditor 
+              content={{ text: currentFileContent, filePath: currentFilePath }} 
+              onContentChange={(newContent) => setCurrentFileContent(newContent)} 
+            />
           </Box>
         </Flex>
-
       </Flex>
     </ChakraProvider>
   );

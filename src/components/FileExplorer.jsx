@@ -221,46 +221,82 @@ export const FileExplorer = ({ onFileSelect, selectedFilePath }) => {
       return (
         <Box key={node.id} ml={level * 4}>
           <HStack
-            py={1}
+            py={1.5}
             px={2}
-            spacing={1}
-            bg={isSelected ? "blue.100" : "transparent"}
-            borderRadius="md"
-            _hover={{ bg: isSelected ? "blue.100" : "gray.100" }}
+            spacing={1.5}
+            bg={isSelected ? "gray.700" : "transparent"}
+            borderRadius="sm"
+            _hover={{ bg: isSelected ? "gray.700" : "gray.700" }}
+            transition="all 0.2s"
           >
             {isFolder && (
               <Icon
                 as={isExpanded ? FaChevronDown : FaChevronRight}
-                w={3}
-                h={3}
+                w={2.5}
+                h={2.5}
+                color="gray.400"
                 onClick={() => toggleFolder(node.id)}
                 cursor="pointer"
+                _hover={{ color: "gray.200" }}
               />
             )}
             <Icon
               as={isFolder ? (isExpanded ? FaFolderOpen : FaFolder) : FaFile}
-              color={isFolder ? "yellow.500" : "blue.500"}
+              color={isFolder ? "yellow.500" : "blue.400"}
+              w={3.5}
+              h={3.5}
             />
             <Text
               onClick={() => (isFolder ? toggleFolder(node.id) : handleFileClick(node.path))}
               cursor="pointer"
-              fontWeight={isSelected ? "bold" : "normal"}
+              fontWeight={isSelected ? "medium" : "normal"}
+              fontSize="13px"
+              color={isSelected ? "gray.100" : "gray.300"}
               flex="1"
+              _hover={{ color: "gray.100" }}
             >
               {node.name}
             </Text>
             <Menu>
-              <MenuButton as={Button} size="xs" variant="ghost">
-                <Icon as={FaEllipsisV} />
+              <MenuButton 
+                as={Button} 
+                size="xs" 
+                variant="ghost" 
+                color="gray.400"
+                _hover={{ bg: 'gray.600', color: 'gray.200' }}
+                p={1}
+              >
+                <Icon as={FaEllipsisV} fontSize="10px" />
               </MenuButton>
-              <MenuList>
+              <MenuList bg="gray.800" borderColor="gray.700">
                 {isFolder && (
                   <>
-                    <MenuItem onClick={() => startCreatingFile(node.path)}>New File</MenuItem>
-                    <MenuItem onClick={() => startCreatingFolder(node.path)}>New Folder</MenuItem>
+                    <MenuItem 
+                      color="gray.300" 
+                      _hover={{ bg: 'gray.700' }} 
+                      fontSize="13px"
+                      onClick={() => startCreatingFile(node.path)}
+                    >
+                      New File
+                    </MenuItem>
+                    <MenuItem 
+                      color="gray.300" 
+                      _hover={{ bg: 'gray.700' }} 
+                      fontSize="13px"
+                      onClick={() => startCreatingFolder(node.path)}
+                    >
+                      New Folder
+                    </MenuItem>
                   </>
                 )}
-                <MenuItem onClick={() => handleDeleteItem(node.path)}>Delete</MenuItem>
+                <MenuItem 
+                  color="red.400" 
+                  _hover={{ bg: 'gray.700' }} 
+                  fontSize="13px"
+                  onClick={() => handleDeleteItem(node.path)}
+                >
+                  Delete
+                </MenuItem>
               </MenuList>
             </Menu>
           </HStack>
@@ -274,50 +310,118 @@ export const FileExplorer = ({ onFileSelect, selectedFilePath }) => {
   }
 
   return (
-    <Box width="300px" height="100%" borderRight="1px" borderColor="gray" bg="gray.600" overflowY="auto">
+    <Box 
+      width="300px" 
+      height="100%" 
+      bg="gray.800" 
+      overflowY="auto"
+      borderRight="1px"
+      borderColor="gray.700"
+      css={{
+        '&::-webkit-scrollbar': {
+          width: '4px',
+        },
+        '&::-webkit-scrollbar-track': {
+          background: 'transparent',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'gray.600',
+          borderRadius: '4px',
+        },
+      }}
+    >
       <VStack align="stretch" spacing={0}>
-        <HStack justify="space-between" p={2} borderBottom="1px" borderColor="gray.200">
-          <Text fontWeight="bold">Files</Text>
-          <HStack>
-            <Button bg="blue.500" size="xs" onClick={loadFiles} title="Refresh">
-              <Icon as={FaSync} />
+        <HStack 
+          justify="space-between" 
+          p={3} 
+          borderBottom="1px" 
+          borderColor="gray.700"
+          bg="gray.900"
+        >
+          <Text fontWeight="medium" fontSize="sm" color="gray.300">Explorer</Text>
+          <HStack spacing={2}>
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              color="gray.400" 
+              _hover={{ color: "gray.200" }}
+              onClick={() => startCreatingFile("/")} 
+              title="New File"
+            >
+              <Icon as={FaFile} fontSize="14px" />
+            </Button>
+            <Button 
+              size="sm" 
+              variant="ghost" 
+              color="gray.400" 
+              _hover={{ color: "gray.200" }}
+              onClick={loadFiles} 
+              title="Refresh"
+            >
+              <Icon as={FaSync} fontSize="14px" />
             </Button>
           </HStack>
         </HStack>
 
-        <InputGroup size="sm" px={2} py={2} borderBottom="2px" borderColor="gray.200">
-          <InputLeftElement pointerEvents="none" height="100%"
-            pl={2}>
-            <FaSearch color="gray.300" />
+        <InputGroup size="sm" px={3} py={3} borderBottom="1px" borderColor="gray.700" bg="gray.900">
+          <InputLeftElement pointerEvents="none" height="100%" pl={3}>
+            <FaSearch color="gray.500" size="12px" />
           </InputLeftElement>
-          <Input placeholder="Search files..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          <Input 
+            placeholder="Search files..." 
+            value={searchQuery} 
+            onChange={(e) => setSearchQuery(e.target.value)}
+            bg="gray.800"
+            border="1px"
+            borderColor="gray.700"
+            _placeholder={{ color: 'gray.500' }}
+            _hover={{ borderColor: 'gray.600' }}
+            _focus={{ borderColor: 'blue.500', boxShadow: 'none' }}
+            fontSize="13px"
+            height="32px"
+            color="gray.300"
+          />
         </InputGroup>
 
         {isLoading ? (
           <Box p={4} textAlign="center">
-            <Spinner />
-            <Text mt={2}>Loading files...</Text>
+            <Spinner color="blue.400" />
+            <Text mt={2} color="gray.400" fontSize="sm">Loading files...</Text>
           </Box>
         ) : error ? (
           <Box p={4} textAlign="center">
-            <Text color="red.500">Error loading files: {error}</Text>
+            <Text color="red.400" fontSize="sm">Error loading files: {error}</Text>
           </Box>
         ) : (
           <>
             {(isCreatingFile || isCreatingFolder) && (
-              <HStack p={2} borderBottom="1px" borderColor="gray">
+              <HStack p={3} borderBottom="1px" borderColor="gray.700" bg="gray.900">
                 <Input
                   size="sm"
                   placeholder={isCreatingFile ? "File name" : "Folder name"}
                   value={newItemName}
                   onChange={(e) => setNewItemName(e.target.value)}
+                  bg="gray.800"
+                  border="1px"
+                  borderColor="gray.700"
+                  color="gray.300"
+                  _hover={{ borderColor: 'gray.600' }}
+                  _focus={{ borderColor: 'blue.500', boxShadow: 'none' }}
                 />
-                <Button size="sm" colorScheme="black" onClick={handleCreateItem}>
+                <Button 
+                  size="sm" 
+                  bg="blue.500" 
+                  color="white" 
+                  _hover={{ bg: 'blue.600' }}
+                  onClick={handleCreateItem}
+                >
                   Create
                 </Button>
                 <Button
                   size="sm"
                   variant="ghost"
+                  color="gray.400"
+                  _hover={{ bg: 'gray.700' }}
                   onClick={() => {
                     setIsCreatingFile(false)
                     setIsCreatingFolder(false)
@@ -332,7 +436,7 @@ export const FileExplorer = ({ onFileSelect, selectedFilePath }) => {
               {fileTree.length > 0 ? (
                 renderFileTree(fileTree)
               ) : (
-                <Text p={2} color="white">
+                <Text p={2} color="gray.400" fontSize="sm">
                   No files found
                 </Text>
               )}
